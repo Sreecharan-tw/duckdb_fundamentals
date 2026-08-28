@@ -121,6 +121,7 @@ This creates `duckdb_example.duckdb` that you can:
 ### Performance & Tips
 - `13_performance_tips.py` - Query optimization techniques
 - `14_pandas_vs_duckdb.py` - Benchmark: Speed & ease comparison (100K rows)
+- `15_large_file_benchmark.py` - Real-world benchmark (1GB+ NYC Taxi data)
 
 ## Running Examples
 
@@ -130,8 +131,9 @@ This creates `duckdb_example.duckdb` that you can:
 # Run a specific example
 make run-01    # Basic operations
 make run-02    # Data types
-make run-03    # CSV operations
-# ... etc (run-01 through run-13)
+make run-14    # Pandas vs DuckDB (100K rows)
+make run-15    # Large file benchmark (1GB+ real data)
+# ... etc (run-01 through run-15)
 
 # Run all examples
 make run-all
@@ -142,6 +144,25 @@ make list
 # View all available commands
 make help
 ```
+
+### Large File Benchmark (Example 15)
+
+Try the **real-world benchmark** with actual NYC Taxi data:
+
+```bash
+make run-15
+```
+
+**What it does:**
+- Downloads ~500MB NYC Taxi Parquet file (cached on subsequent runs)
+- Compares Pandas vs DuckDB on 50M+ row dataset
+- Shows why DuckDB is essential for large files
+- Demonstrates memory efficiency (1.5GB file vs 100MB query)
+
+**Expected results:**
+- DuckDB: 5-10x faster for filtering
+- Pandas: Out-of-memory errors on large files
+- DuckDB: Handles 10GB+ files efficiently
 
 ### Direct Python
 

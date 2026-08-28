@@ -36,7 +36,8 @@ help:
 	@echo "  $(YELLOW)make run-11$(NC)        - Run time series example"
 	@echo "  $(YELLOW)make run-12$(NC)        - Run statistics example"
 	@echo "  $(YELLOW)make run-13$(NC)        - Run performance tips example"
-	@echo "  $(YELLOW)make run-14$(NC)        - Run Pandas vs DuckDB comparison"
+	@echo "  $(YELLOW)make run-14$(NC)        - Run Pandas vs DuckDB comparison (100K rows)"
+	@echo "  $(YELLOW)make run-15$(NC)        - Run large file benchmark (1GB+ NYC Taxi data)"
 	@echo "  $(YELLOW)make run-all$(NC)       - Run all examples"
 	@echo "  $(YELLOW)make run NUM=<n>$(NC)   - Run specific example (e.g., make run NUM=01)"
 	@echo ""
@@ -113,6 +114,9 @@ list:
 	@echo ""
 	@echo "$(GREEN)14 - Pandas vs DuckDB Comparison$(NC)"
 	@echo "     Speed and ease of use benchmark (100K rows Parquet)"
+	@echo ""
+	@echo "$(GREEN)15 - Large File Benchmark (1GB+)$(NC)"
+	@echo "     Real-world comparison with NYC Taxi dataset (downloads ~500MB)"
 
 # Run individual examples
 run-00: check-uv
@@ -160,6 +164,9 @@ run-13: check-uv
 run-14: check-uv
 	@$(UV) run examples/14_pandas_vs_duckdb.py
 
+run-15: check-uv
+	@$(UV) run examples/15_large_file_benchmark.py
+
 # Run specific example by number
 run: check-uv
 	@if [ -z "$(NUM)" ]; then \
@@ -180,7 +187,9 @@ run-all: check-uv
 	@echo "$(BLUE)Running example 00 (persistent database)...$(NC)"
 	@$(UV) run examples/00_persistent_database.py
 	@echo ""
-	@for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14; do \
+	@echo "$(YELLOW)Note: Example 15 will download 500MB NYC Taxi dataset on first run$(NC)"
+	@echo ""
+	@for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15; do \
 		echo "$(BLUE)Running example $$i...$(NC)"; \
 		$(UV) run examples/$$i*.py; \
 		echo ""; \
