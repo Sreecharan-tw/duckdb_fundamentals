@@ -47,3 +47,41 @@ python examples/02_data_types.py
 ## Resources
 - Official DuckDB docs: https://duckdb.org/docs/
 - GitHub: https://github.com/duckdb/duckdb
+
+## Instructions for Claude
+
+### Commit Strategy
+⚠️ **DO NOT commit changes after each iteration or code change.**
+
+Instead:
+- Make multiple file edits/changes
+- Batch related changes together
+- **Only commit when explicitly asked** ("commit this", "save changes", etc.)
+- When you do commit, combine related changes into one commit with a comprehensive message
+
+**Rationale:**
+- Keeps git history clean and organized
+- Avoids cluttering the commit log with intermediate changes
+- Allows for better grouping of related work
+- Faster workflow with fewer git operations
+
+### Code Changes
+- Edit/create files as needed for features and fixes
+- Test changes before committing
+- Don't ask for permission to edit files
+- Batch test + feature together when possible
+
+### When to Commit
+- User explicitly asks: "commit this", "save", "make a commit"
+- At the end of a complete feature or fix
+- When several related changes are ready
+- When asked for a pull request
+
+**Example Workflow:**
+```
+1. User: "Add feature X and Y"
+2. Claude: Creates files, edits code (no commits)
+3. Claude: Tests both features
+4. Claude: Shows the work is complete
+5. User: "Commit this" → Claude commits
+```
