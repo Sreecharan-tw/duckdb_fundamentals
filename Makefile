@@ -36,6 +36,7 @@ help:
 	@echo "  $(YELLOW)make run-11$(NC)        - Run time series example"
 	@echo "  $(YELLOW)make run-12$(NC)        - Run statistics example"
 	@echo "  $(YELLOW)make run-13$(NC)        - Run performance tips example"
+	@echo "  $(YELLOW)make run-14$(NC)        - Run Pandas vs DuckDB comparison"
 	@echo "  $(YELLOW)make run-all$(NC)       - Run all examples"
 	@echo "  $(YELLOW)make run NUM=<n>$(NC)   - Run specific example (e.g., make run NUM=01)"
 	@echo ""
@@ -109,6 +110,9 @@ list:
 	@echo ""
 	@echo "$(GREEN)13 - Performance Tips$(NC)"
 	@echo "     Query optimization and best practices"
+	@echo ""
+	@echo "$(GREEN)14 - Pandas vs DuckDB Comparison$(NC)"
+	@echo "     Speed and ease of use benchmark (100K rows Parquet)"
 
 # Run individual examples
 run-00: check-uv
@@ -153,6 +157,9 @@ run-12: check-uv
 run-13: check-uv
 	@$(UV) run examples/13_performance_tips.py
 
+run-14: check-uv
+	@$(UV) run examples/14_pandas_vs_duckdb.py
+
 # Run specific example by number
 run: check-uv
 	@if [ -z "$(NUM)" ]; then \
@@ -173,7 +180,7 @@ run-all: check-uv
 	@echo "$(BLUE)Running example 00 (persistent database)...$(NC)"
 	@$(UV) run examples/00_persistent_database.py
 	@echo ""
-	@for i in 01 02 03 04 05 06 07 08 09 10 11 12 13; do \
+	@for i in 01 02 03 04 05 06 07 08 09 10 11 12 13 14; do \
 		echo "$(BLUE)Running example $$i...$(NC)"; \
 		$(UV) run examples/$$i*.py; \
 		echo ""; \
