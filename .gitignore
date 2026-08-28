@@ -133,10 +133,12 @@ dmypy.json
 .DS_Store
 Thumbs.db
 
-# DuckDB
+# DuckDB - Database files should NOT be committed
+# Use 'make run-00' to generate the example database
 *.duckdb
 *.db
 *.sqlite
+duckdb_example.duckdb
 
 # Temporary files
 *.tmp
