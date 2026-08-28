@@ -120,6 +120,7 @@ This creates `duckdb_example.duckdb` that you can:
 
 ### Performance & Tips
 - `13_performance_tips.py` - Query optimization techniques
+- `14_pandas_vs_duckdb.py` - Benchmark: Speed & ease comparison (100K rows)
 
 ## Running Examples
 
@@ -189,14 +190,57 @@ UV is a fast, Rust-based Python package installer that provides:
 
 For more info: https://github.com/astral-sh/uv
 
+## DuckDB for Teams: Learning & Data Analysis
+
+This repository demonstrates DuckDB for **learning and team collaboration**. Here's the recommended workflow:
+
+### 📚 For Learning (Current Use Case)
+```bash
+# Each team member clones repo
+git clone <repo>
+
+# Generates local copy of database
+make run-00
+
+# Run examples and queries
+make run-01
+make run-14  # See speed comparison
+```
+
+**Why this works:**
+- ✅ No large files in git (clean repository)
+- ✅ Everyone gets identical starting data
+- ✅ Deterministic examples for learning
+- ✅ Each person has isolated database
+- ✅ Safe - no production data at risk
+
+### 📊 For Shared Analysis
+If your team needs to **share query results** or **collaborate on analysis**:
+
+**Option A: Export & Share Results**
+- Run analysis in DuckDB
+- Export to CSV/Parquet for sharing
+- Share results via git/email/Slack
+
+**Option B: Shared File Storage**
+- Store `.duckdb` on S3 / Google Drive / Network Share
+- Team downloads and queries locally
+- Read-only access works great
+
+**Option C: DuckDB Server** (for true multi-user access)
+- Use duckdb-server or HTTP API
+- Enable read/write for team members
+- Better for production environments
+
 ## Key DuckDB Features
 
-- **Fast**: Optimized vectorized execution engine
+- **Fast**: Optimized vectorized execution engine (77x faster than Pandas for filtering!)
 - **In-Process**: No separate server process needed
 - **SQL**: Full SQL support with Python integration
 - **Multiple Formats**: Read/write CSV, Parquet, JSON, etc.
 - **Pandas Integration**: Seamless conversion between DuckDB and Pandas
 - **Analytical**: Optimized for OLAP workloads, not OLTP
+- **Memory Efficient**: Query Parquet files without loading all data
 
 ## Documentation
 
