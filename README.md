@@ -77,7 +77,26 @@ python examples/01_basic_operations.py
 - **Makefile** - Convenient commands for setup, running examples, and cleanup
 - **requirements.txt** - Python dependencies
 
+## External Connection (DBeaver, CLI, etc.)
+
+Want to query the database from **DBeaver**, **DuckDB CLI**, or other tools?
+
+```bash
+# Create persistent database for external connections
+make run-00
+```
+
+This creates `duckdb_example.duckdb` that you can:
+- 📊 **Query in DBeaver** - Visual SQL editor and explorer
+- 🖥️ **Use DuckDB CLI** - Command-line interface
+- 🐍 **Access from Python** - Connect to same file
+
+→ See [DBEAVER_SETUP.md](DBEAVER_SETUP.md) for detailed instructions
+
 ## Examples Overview
+
+### Persistent Database
+- `00_persistent_database.py` - Create database for external connections
 
 ### Basic Operations
 - `01_basic_operations.py` - Create, insert, query, and delete operations

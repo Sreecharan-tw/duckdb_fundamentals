@@ -22,6 +22,7 @@ help:
 	@echo "  $(YELLOW)make sync$(NC)          - Sync UV lock file"
 	@echo ""
 	@echo "$(GREEN)Run Commands:$(NC)"
+	@echo "  $(YELLOW)make run-00$(NC)        - Create persistent database (for DBeaver/CLI)"
 	@echo "  $(YELLOW)make run-01$(NC)        - Run basic operations example"
 	@echo "  $(YELLOW)make run-02$(NC)        - Run data types example"
 	@echo "  $(YELLOW)make run-03$(NC)        - Run CSV operations example"
@@ -110,6 +111,9 @@ list:
 	@echo "     Query optimization and best practices"
 
 # Run individual examples
+run-00: check-uv
+	@$(UV) run examples/00_persistent_database.py
+
 run-01: check-uv
 	@$(UV) run examples/01_basic_operations.py
 
@@ -165,6 +169,9 @@ run: check-uv
 # Run all examples
 run-all: check-uv
 	@echo "$(BLUE)Running all DuckDB examples...$(NC)"
+	@echo ""
+	@echo "$(BLUE)Running example 00 (persistent database)...$(NC)"
+	@$(UV) run examples/00_persistent_database.py
 	@echo ""
 	@for i in 01 02 03 04 05 06 07 08 09 10 11 12 13; do \
 		echo "$(BLUE)Running example $$i...$(NC)"; \
