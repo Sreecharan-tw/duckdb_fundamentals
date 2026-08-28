@@ -1,7 +1,17 @@
+# DuckDB Fundamentals Dependencies
+#
+# Note: This project uses UV for package management.
+# For best experience, use: make install
+#
+# For legacy pip usage:
+# pip install -r requirements.txt
+
 duckdb==1.0.0
 pandas==2.2.0
 numpy==1.24.3
 openpyxl==3.10.10
+
+# Optional dependencies for development and notebooks
 jupyter==1.0.0
 notebook==7.0.0
 matplotlib==3.8.0

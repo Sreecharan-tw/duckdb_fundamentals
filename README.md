@@ -8,19 +8,61 @@ DuckDB is an embedded SQL OLAP database management system. It's optimized for an
 
 ## Getting Started
 
-### Installation
+### Quick Setup with UV + Make
+
+The easiest way to get started is using UV (fast Python package installer) with Make:
 
 ```bash
-pip install -r requirements.txt
+# Install UV first (if not already installed)
+pip install uv
+
+# Install dependencies
+make install
+
+# Run examples
+make run-01  # Run basic operations example
+make run-all # Run all examples
 ```
 
-This will install DuckDB and other required dependencies.
+### Manual Setup with UV
+
+If you prefer to do it manually:
+
+```bash
+# Install UV (if not already installed)
+pip install uv
+
+# Install dependencies from pyproject.toml
+uv sync
+
+# Run examples
+uv run examples/01_basic_operations.py
+```
+
+### Legacy Setup with pip
+
+If you don't have UV installed:
+
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate  # Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run example
+python examples/01_basic_operations.py
+```
 
 ## Repository Structure
 
 - **examples/** - Individual examples demonstrating different DuckDB features
-- **data/** - Sample datasets used in examples
-- **notebooks/** - Jupyter notebooks with detailed explanations
+- **Makefile** - Convenient commands for setup, running examples, and cleanup
+- **requirements.txt** - Python dependencies
 
 ## Examples Overview
 
@@ -49,6 +91,27 @@ This will install DuckDB and other required dependencies.
 
 ## Running Examples
 
+### Using Make (Recommended)
+
+```bash
+# Run a specific example
+make run-01    # Basic operations
+make run-02    # Data types
+make run-03    # CSV operations
+# ... etc (run-01 through run-13)
+
+# Run all examples
+make run-all
+
+# List all available examples
+make list
+
+# View all available commands
+make help
+```
+
+### Direct Python
+
 Each example file can be run independently:
 
 ```bash
@@ -56,6 +119,43 @@ python examples/01_basic_operations.py
 python examples/02_data_types.py
 # ... and so on
 ```
+
+## Makefile Commands
+
+The project includes a Makefile for convenient commands using UV:
+
+### Setup
+- `make install` - Install dependencies with UV (creates .venv)
+- `make install-dev` - Install with dev dependencies (includes jupyter, matplotlib, etc.)
+- `make sync` - Sync dependencies from uv.lock file
+
+### Run Examples
+- `make run-01` through `make run-13` - Run specific examples
+- `make run NUM=01` - Alternative way to run specific example
+- `make run-all` - Run all 13 examples sequentially
+- `make list` - Display all available examples
+
+### Development
+- `make lint` - Run ruff linter on examples
+- `make format` - Format code with black
+- `make clean` - Remove Python cache files
+- `make clean-all` - Complete cleanup (.venv + cache + lock file)
+
+### Other
+- `make help` - Show all available commands
+- `make version` - Display Python, UV, and DuckDB versions
+
+## Why UV?
+
+UV is a fast, Rust-based Python package installer that provides:
+
+- **⚡ Fast** - 10-100x faster than pip
+- **🔒 Reliable** - Deterministic dependency resolution
+- **📦 Lock files** - uv.lock ensures reproducible environments
+- **🎯 Simple** - Drop-in replacement for pip and venv
+- **🐍 Python-native** - Installs and manages Python versions
+
+For more info: https://github.com/astral-sh/uv
 
 ## Key DuckDB Features
 

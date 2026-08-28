@@ -19,12 +19,11 @@ conn.execute("""
         id INTEGER,
         name VARCHAR,
         age SMALLINT,
-        salary DECIMAL(12, 2),
+        salary DOUBLE,
         hire_date DATE,
         last_login TIMESTAMP,
         is_active BOOLEAN,
-        tags LIST(VARCHAR),
-        metadata STRUCT(department VARCHAR, level VARCHAR)
+        tags JSON
     )
 """)
 print("✓ Table created with various data types")
@@ -41,8 +40,7 @@ conn.execute("""
         DATE '2020-01-15',
         TIMESTAMP '2024-08-28 14:30:00',
         true,
-        ['python', 'sql', 'analytics'],
-        {'department': 'Engineering', 'level': 'Senior'}
+        '["python", "sql", "analytics"]'::JSON
     ),
     (
         2,
@@ -52,8 +50,7 @@ conn.execute("""
         DATE '2019-06-20',
         TIMESTAMP '2024-08-27 09:15:00',
         true,
-        ['sales', 'negotiation'],
-        {'department': 'Sales', 'level': 'Mid-level'}
+        '["sales", "negotiation"]'::JSON
     )
 """)
 print("✓ Data inserted")
@@ -103,39 +100,28 @@ result = conn.execute("""
 for row in result:
     print(f"  {row[0]}: {row[2]} days employed, hired in {row[3]}")
 
-# List type
-print("\n8. List Type:")
+# JSON type
+print("\n8. JSON Type:")
 result = conn.execute(
     "SELECT name, tags FROM data_types_demo WHERE id = 1"
 ).fetchone()
 print(f"  {result[0]}'s tags: {result[1]}")
 
-# List functions
-print("\n9. List Functions:")
+# JSON functions
+print("\n9. JSON Functions:")
 result = conn.execute("""
     SELECT
         name,
-        list_length(tags) as num_tags,
-        list_contains(tags, 'python') as knows_python
+        tags,
+        json_array_length(tags) as num_tags
     FROM data_types_demo
+    WHERE id <= 2
 """).fetchall()
 for row in result:
-    print(f"  {row[0]}: {row[1]} tags, knows Python: {row[2]}")
-
-# Struct type
-print("\n10. Struct Type (accessing nested fields):")
-result = conn.execute("""
-    SELECT
-        name,
-        metadata.department,
-        metadata.level
-    FROM data_types_demo
-""").fetchall()
-for row in result:
-    print(f"  {row[0]}: {row[1]}, {row[2]}")
+    print(f"  {row[0]}: tags: {row[1]}, count: {row[2]}")
 
 # Type casting
-print("\n11. Type Casting:")
+print("\n10. Type Casting:")
 result = conn.execute("""
     SELECT
         id,
@@ -151,7 +137,7 @@ print(f"  Text to int: {result[2]}")
 print(f"  Salary (rounded): {result[3]}")
 
 # NULL handling
-print("\n12. NULL Handling:")
+print("\n11. NULL Handling:")
 conn.execute("INSERT INTO data_types_demo (id, name) VALUES (3, 'Charlie')")
 result = conn.execute("""
     SELECT
@@ -163,6 +149,20 @@ result = conn.execute("""
     WHERE id = 3
 """).fetchone()
 print(f"  ID: {result[0]}, Name: {result[1]}, Age (NULL): {result[2]}, Age (coalesced): {result[3]}")
+
+# Numeric type operations
+print("\n12. Numeric Operations:")
+result = conn.execute("""
+    SELECT
+        name,
+        salary,
+        salary * 1.1 as salary_with_10pct_raise,
+        salary / 12 as monthly_salary
+    FROM data_types_demo
+    WHERE id <= 2
+""").fetchall()
+for row in result:
+    print(f"  {row[0]}: base ${row[1]:.2f}, with raise ${row[2]:.2f}, monthly ${row[3]:.2f}")
 
 print("\n" + "=" * 60)
 print("Data types exploration complete!")
