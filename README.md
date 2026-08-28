@@ -13,15 +13,19 @@ DuckDB is an embedded SQL OLAP database management system. It's optimized for an
 The easiest way to get started is using UV (fast Python package installer) with Make:
 
 ```bash
-# Install UV first (if not already installed)
+# Install UV (one-time)
 pip install uv
+# or
+brew install uv  # macOS
 
-# Install dependencies
+# Install dependencies with UV
 make install
 
 # Run examples
-make run-01  # Run basic operations example
-make run-all # Run all examples
+make run-01       # Run basic operations example
+make run-02       # Run data types example
+# ... or
+make run-all      # Run all 13 examples
 ```
 
 ### Manual Setup with UV
@@ -35,8 +39,17 @@ pip install uv
 # Install dependencies from pyproject.toml
 uv sync
 
-# Run examples
+# Verify installation
 uv run examples/01_basic_operations.py
+```
+
+### Verify Installation
+
+After setup, verify everything works:
+
+```bash
+make version  # Show Python and DuckDB versions
+make run-01   # Run first example (should complete successfully)
 ```
 
 ### Legacy Setup with pip
